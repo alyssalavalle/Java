@@ -140,167 +140,141 @@ while (input != 's' && input != 'S') {
     r.move();
     r.draw(g);
     }
-138
-139 /** end of student code, part 2 */
-140
-141 } else // display racers before race begins
-142 {
-143
-144 /* 3. ***** Student writes this code
-145 * Loop through instance variable ArrayList
-racerList,
-146 * which contains Racer object references,
-147 * calling draw for each element. (Do not call
-move!)
-148 * The API for draw is:
-149 * void draw( Graphics g )
-150 * where g is the Graphics context
-151 * passed to this paint method
-152 */
-153 // student code goes here
-154 for (Racer r: racerList)
-155 r.draw(g);
-156 /** end of student code, part 3 */
-157 }
-158 }
-159 }
-160
-161 /**
-162 * runRace method checks whether any racers have been added to
-racerList if
-163 * no racers, exits with message otherwise, runs race, calls
-repaint to move
-164 * & draw racers calls reportRaceResults to identify winners(s)
-calls reset
-Page 4
-Race.java
-165 * to set up for next race
-166 * @throws InterruptedException
-167 */
-168 public void runRace() throws InterruptedException {
-169 if (racerList.size() == 0) {
-170 JOptionPane.showMessageDialog(this, "The race has no
-racers. exiting",
-171 "No Racers", JOptionPane.ERROR_MESSAGE);
-172 System.exit(0);
-173 }
-174 raceIsOn = true;
-175 while (!findWinner()) {
-176 // slow down here if you know how
-177 Thread.sleep(30);
-178 repaint();
-179 } // end while
-180
-181 reportRaceResults();
-182 reset();
-183 }
-184
-185 /**
-186 * gets racer selection from user
-187 *
-188 * @return first character of user entry if user presses
-cancel, exits the
-189 * program
-190 */
-191 private char getRacer() {
-192 String input = JOptionPane.showInputDialog(this, "Enter a
-racer:"
-193 + "\nt for Tortoise, h for hare, r for rectangle" +
-"\nor s to start the race");
-194 if (input == null) {
-195 System.out.println("Exiting");
-196 System.exit(0);
-197 }
-198 if (input.length() == 0)
-199 return 'n';
-200 else
-201 return input.charAt(0);
-202 }
-203
-204 /**
-205 * findWinners: checks for any racer whose x position is past
+/** end of student code, part 2 */
+} 
+    else // display racers before race begins
+    {
+/* 3. ***** Student writes this code
+* Loop through instance variable ArrayList racerList,
+* which contains Racer object references,
+* calling draw for each element. (Do not call move!)
+* The API for draw is:
+* void draw( Graphics g )
+* where g is the Graphics context
+* passed to this paint method
+*/
+// student code goes here
+    for (Racer r: racerList)
+    r.draw(g);
+/** end of student code, part 3 */
+}
+}
+}
+/**
+* runRace method checks whether any racers have been added to racerList if
+* no racers, exits with message otherwise, runs race, calls repaint to move
+* & draw racers calls reportRaceResults to identify winners(s) calls reset
+* to set up for next race
+* @throws InterruptedException
+*/
+
+  public void runRace() throws InterruptedException {
+    if (racerList.size() == 0) {
+      JOptionPane.showMessageDialog(this, "The race has no racers. exiting", "No Racers", JOptionPane.ERROR_MESSAGE);
+      System.exit(0);
+}
+    raceIsOn = true;
+    while (!findWinner()) {
+// slow down here if you know how
+    Thread.sleep(30);
+    repaint();
+} // end while
+
+    reportRaceResults();
+    reset();
+}
+/**
+* gets racer selection from user
+*
+* @return first character of user entry if user presses cancel, exits the
+* program
+*/
+
+  private char getRacer() {
+  String input = JOptionPane.showInputDialog(this, "Enter a racer:" + "\nt for Tortoise, h for hare, r for rectangle" + "\nor s to start the race");
+    
+    if (input == null) {
+        System.out.println("Exiting");
+        System.exit(0);
+    }
+    if (input.length() == 0)
+      return 'n';
+    else
+    return input.charAt(0);
+    }
+
+/**
+* findWinners: checks for any racer whose x position is past the finish line
+* findWinners: checks for any racer whose x position is past
 the finish line
-Page 5
-Race.java
-205 * findWinners: checks for any racer whose x position is past
-the finish line
-206 *
-207 * @return true if any racer's x position is past the finish
+*
+* @return true if any racer's x position is past the finish
 line or false if
-208 * no racer's x position is past the finish line
-209 */
-210 private boolean findWinner() {
-211 for (Racer r : racerList) {
-212 if (r.getX() > finishX) {
-213 r.isWinner = true;
-214 return true;
-215 }
-216 }
-217
-218
-219 return false;
-220 }
-221 /**
-222 * reportRaceResults : compiles winner names and prints message
-winners are
-223 * all racers whose x position is past the finish line
-224 */
-225 private void reportRaceResults() {
-226 raceIsOn = false;
-227 String results = "Racer ";
-228 for (int i = 0; i < racerList.size(); i++) {
-229 if (racerList.get(i).getX() > finishX) {
-230 results += (i + 1) + ", a " +
-racerList.get(i).getID() + ", ";
-231 }
-232 }
-233
-234 JOptionPane.showMessageDialog(this, results + " win(s) the
-race ");
-235
-236 }
-237
-238 /**
-239 * reset: sets up for next race: sets raceIsOn flag to false
+* no racer's x position is past the finish line
+*/
+  
+private boolean findWinner() {
+  for (Racer r : racerList) {
+    if (r.getX() > finishX) {
+      r.isWinner = true;
+      return true;
+    }
+}
+    return false;
+}
+  
+/**
+* reportRaceResults : compiles winner names and prints message winners are
+* all racers whose x position is past the finish line
+*/
+
+  private void reportRaceResults() {
+    raceIsOn = false;
+    String results = "Racer ";
+      for (int i = 0; i < racerList.size(); i++) {
+        if (racerList.get(i).getX() > finishX) {
+          results += (i + 1) + ", a " +
+          racerList.get(i).getID() + ", ";
+        }
+     }
+    JOptionPane.showMessageDialog(this, results + " win(s) the race ");
+}
+/**
+* reset: sets up for next race: sets raceIsOn flag to false
 clears the list
-240 * of racers resets racer position to FIRST_RACER enables
-checkboxes and
-241 * radio buttons
-242 * @throws InterruptedException
-243 */
-Page 6
-Race.java
-244 private void reset() throws InterruptedException {
-245 char answer;
-246 String input = JOptionPane.showInputDialog(this, "Another
-race? (y, n)");
-247 if (input == null || input.length() == 0) {
-248 System.out.println("Exiting");
-249 System.exit(0);
-250 }
-251
-252 answer = input.charAt(0);
-253 if (answer == 'y' || answer == 'Y') {
-254 raceIsOn = false;
-255 racerList.clear();
-256 app.prepareToRace();
-257 app.runRace();
-258 } else
-259 System.exit(0);
-260 }
-261
-262 /**
-263 * main instantiates the Race object app
-264 * calls runRace method
-265 * @throws InterruptedException
-266 */
-267 public static void main(String[] args) throws
-InterruptedException {
-268 app = new Race();
-269 app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-270 app.prepareToRace();
-271 app.runRace();
-272 }
-273
-274 }
-Page 7
+* of racers resets racer position to FIRST_RACER enables checkboxes and
+* radio buttons
+* @throws InterruptedException
+*/
+
+  private void reset() throws InterruptedException {
+      char answer;
+      String input = JOptionPane.showInputDialog(this, "Another race? (y, n)");
+      if (input == null || input.length() == 0) {
+        System.out.println("Exiting");
+        System.exit(0);
+      }
+
+    answer = input.charAt(0);
+    if (answer == 'y' || answer == 'Y') {
+      raceIsOn = false;
+      racerList.clear();
+      app.prepareToRace();
+      app.runRace();
+    } 
+    else
+      System.exit(0);
+}
+/**
+* main instantiates the Race object app
+* calls runRace method
+* @throws InterruptedException
+*/
+
+  public static void main(String[] args) throws InterruptedException {
+    app = new Race();
+    app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    app.prepareToRace();
+    app.runRace();
+  }
+}
